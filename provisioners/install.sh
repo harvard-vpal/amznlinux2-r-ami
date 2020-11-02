@@ -8,13 +8,7 @@ amazon-linux-extras install -y epel
 
 # miscellaneous dependencies for R and common packages
 yum install -y gcc gcc-gfortran gcc-c++ java-devel libcurl-devel readline-devel pcre-devel \
-	bzip2-devel libpng-devel cairo-devel pango-devel libxml2-devel openssl-devel openblas-devel \
-	postgresql-devel zeromq-devel git
-
-# pandoc (for R Markdown)
-cd /tmp
-wget https://github.com/jgm/pandoc/releases/download/2.11.0.4/pandoc-2.11.0.4-linux-amd64.tar.gz
-tar xvzf pandoc-2.11.0.4-linux-amd64.tar.gz --strip-components 1 -C /usr/local
+	bzip2-devel libxml2-devel openssl-devel openblas-devel postgresql-devel zeromq-devel git
 
 # R
 cd /tmp
@@ -28,12 +22,3 @@ make install
 # R defaults
 echo 'options(repos = c(CRAN="https://cran.r-project.org/"))' >> /usr/local/lib64/R/etc/Rprofile.site
 /usr/local/bin/R CMD javareconf
-
-# RStudio Server
-yum install -y https://download2.rstudio.org/server/centos6/x86_64/rstudio-server-rhel-1.3.1093-x86_64.rpm
-
-# create user
-adduser rstudio
-
-# run server on port 80
-echo 'www-port=80' >> /etc/rstudio/rserver.conf
